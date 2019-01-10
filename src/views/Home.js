@@ -1,6 +1,7 @@
 import React from 'react'
 import PokedexCard from '../components/PokedexCard'
 import { ContextPokemon } from '../Context'
+import { FormattedMessage } from 'react-intl'
 
 class Home extends React.Component {
   static contextType = ContextPokemon
@@ -30,7 +31,7 @@ class Home extends React.Component {
     ? <button className="btn btn-primary"
         onClick={ this.context.showMorePokemon }
       >
-        Cargar más pokemon
+       <FormattedMessage id="load.pokemon" />
       </button>
     : null
   )
@@ -43,16 +44,20 @@ class Home extends React.Component {
             <div className="row">
               <div className="col-md-12 col-lg-6 ml-auto mr-auto">
                 <div className="text-center">
-                  <label>Busca a tu pokemon favorito:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Introduce el nombre del pokemon"
-                    onChange={ this.context.handleChangeFilter }
-                    value={ this.context.state.filter }
-                  />
+                  <label><FormattedMessage id="title.search" /></label>
+                  <FormattedMessage id="placeholder.search">
+                    {msj => (
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder={msj}
+                        onChange={ this.context.handleChangeFilter }
+                        value={ this.context.state.filter }
+                      />
+                    )}
+                  </FormattedMessage>
                   <small id="emailHelp" className="form-text text-muted">
-                    Actualmente solo se pueden hacer búsquedas por nombre
+                    <FormattedMessage id="note.search" />
                   </small>
                 </div>
               </div>
