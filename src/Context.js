@@ -1,5 +1,17 @@
 import React from 'react'
 import { getPokemon } from './services/pokemon'
+import { addLocaleData, IntlProvider } from 'react-intl'
+import locale_en from 'react-intl/locale-data/en'
+import locale_es from 'react-intl/locale-data/es'
+import en from './translations/en.json'
+import es from './translations/es.json'
+
+addLocaleData([...locale_en, ...locale_es])
+
+const messages = {
+  en,
+  es
+}
 
 export const ContextPokemon = React.createContext()
 
@@ -7,7 +19,14 @@ class Context extends React.Component {
   state = {
     pokemon: [],
     limit: 12,
-    filter: ''
+    filter: '',
+    locale: 'es'
+  }
+
+  changeLocale = () => {
+    this.setState({
+      locale: this.state.locale === 'en' ? 'es' : 'en'
+    })
   }
 
   getPokemon = async () => {
@@ -38,18 +57,22 @@ class Context extends React.Component {
   }
 
   render() {
+    const {locale} = this.state;
     const context = {
       state: this.state,
       filteredPokemon: this.filteredPokemon,
       getPokemon: this.getPokemon,
       handleChangeFilter: this.handleChangeFilter,
-      showMorePokemon: this.showMorePokemon
+      showMorePokemon: this.showMorePokemon,
+      changeLocale: this.changeLocale,
     }
 
     return (
-      <ContextPokemon.Provider value={ context }>
-        { this.props.children }
-      </ContextPokemon.Provider>
+      <IntlProvider {...{locale, messages:messages[locale]}}>
+        <ContextPokemon.Provider value={ context }>
+          { this.props.children }
+        </ContextPokemon.Provider>
+      </IntlProvider>
     )
   }
 }

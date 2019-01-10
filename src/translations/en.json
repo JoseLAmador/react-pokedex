@@ -1,0 +1,8 @@
+{
+  "app.title": "Virtual Pokédex",
+  "title.search": "Search your favorite pokemon:",
+  "placeholder.search": "Enter the name of the pokemon",
+  "note.search": "Currently you can only search by name",
+  "load.pokemon": "Load more pokemon",
+  "app.footer": "Open source project created by Leopoldo Caballero based in the work of Javier Díaz - Workshop"
+}
